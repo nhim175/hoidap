@@ -1,0 +1,243 @@
+﻿/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body {
+    font-family: Segoe UI, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+}
+h1.title:before {
+    content: 'Xin chào ';
+}
+h1.title:after {
+    content: '!';
+}
+p.adviser1, p.adviser2, p.adviser3 {       
+    color: #FFF;
+}
+p.question, p.unanswered-question {
+    line-height: 2;
+    padding-left: 10px;     
+    border-bottom: 1px solid #EEE;
+}
+p.adviser2 {
+    background: rgb(87,159,198); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(87,159,198,1) 0%, rgba(37,141,200,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(87,159,198,1)), color-stop(100%,rgba(37,141,200,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(87,159,198,1) 0%,rgba(37,141,200,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(87,159,198,1) 0%,rgba(37,141,200,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(87,159,198,1) 0%,rgba(37,141,200,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(87,159,198,1) 0%,rgba(37,141,200,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#579fc6', endColorstr='#258dc8',GradientType=0 ); /* IE6-9 */
+
+    
+}
+p[class^="adviser"] .adviser-name {
+    color: #DDD;
+}
+p.adviser3 {
+    background: rgb(112,224,47); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(112,224,47,1) 0%, rgba(41,154,11,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(112,224,47,1)), color-stop(100%,rgba(41,154,11,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(112,224,47,1) 0%,rgba(41,154,11,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(112,224,47,1) 0%,rgba(41,154,11,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(112,224,47,1) 0%,rgba(41,154,11,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(112,224,47,1) 0%,rgba(41,154,11,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#70e02f', endColorstr='#299a0b',GradientType=0 ); /* IE6-9 */
+
+}
+p.adviser1 {
+    background: rgb(229,112,231); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(229,112,231,1) 0%, rgba(200,94,199,1) 47%, rgba(168,73,163,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,112,231,1)), color-stop(47%,rgba(200,94,199,1)), color-stop(100%,rgba(168,73,163,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(229,112,231,1) 0%,rgba(200,94,199,1) 47%,rgba(168,73,163,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(229,112,231,1) 0%,rgba(200,94,199,1) 47%,rgba(168,73,163,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(229,112,231,1) 0%,rgba(200,94,199,1) 47%,rgba(168,73,163,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(229,112,231,1) 0%,rgba(200,94,199,1) 47%,rgba(168,73,163,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 ); /* IE6-9 */
+
+}
+p.solved {
+    text-decoration: line-through;
+}
+#question-txt {
+    width: 97%;
+    font: inherit;
+}
+.page-link {
+    margin: 0px 5px;
+}
+input[type='text'], input[type='password'] {
+    height: 30px;
+}
+
+.login-form {
+    margin-top: 10%;
+}
+.login-form input[type='submit']{
+    margin-left: 70%;
+}
+.center .inner-left {
+    float: right;
+    margin-right: 50%;
+}
+.center .inner-right {
+    margin-left: 50%;
+}
+.form-title {
+    width: 110px;
+    height: 150px;
+    text-indent: -9999px;
+    margin-left: 50%;
+}
+.manager-icon {    
+    background: url(../img/usericon.jpg) no-repeat 0px 0px;
+}
+.mc-icon {
+    background: url(../img/usericon.jpg) no-repeat -150px -180px;
+}
+.adviser-icon {
+    background: url(../img/usericon.jpg) no-repeat 0px -550px;
+}
+.home-logo {
+    margin-bottom: 20px;
+}
+.homebtns {
+    width: 400px;
+    text-align: center;
+}
+.left-col {
+    width: 70%;
+    float: left;
+}
+.top-full {
+    width: 100%;
+    float: left;
+}
+#chat-box {
+    position: fixed;
+    width: 250px;
+    top: 5px;
+    right: 5px;
+}
+#chat-box .inner {
+    padding: 0px 5px;
+    border: 1px solid #AAA;
+    margin-left: 10px;
+}
+#chat-input {
+    width: 95%;
+}
+.chat-screen {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.chat-screen p {
+    line-height: 25px;
+}
+#chat-screen p:nth-child(2n+1) {
+    background-color: #EEE;
+}
+#question-tbl .adviser-tbl {
+    width: 33%;
+    float: left;
+}
+#question-list {
+    clear: both;
+    float: left;
+}
+#question-list, #question-list table {
+    width: 100%;
+}
+#question-list td:first-child {
+}
+span.minutes {
+    font-size: 0.8em;
+}
+td {
+    vertical-align: middle;
+}
+td input[type="button"] {
+    font-size: 0.8em;
+    float: right;
+}
+p.later {
+    background: rgb(255,175,75); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,175,75,1) 0%, rgba(255,146,10,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,175,75,1)), color-stop(100%,rgba(255,146,10,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,175,75,1) 0%,rgba(255,146,10,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,175,75,1) 0%,rgba(255,146,10,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,175,75,1) 0%,rgba(255,146,10,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,175,75,1) 0%,rgba(255,146,10,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffaf4b', endColorstr='#ff920a',GradientType=0 ); /* IE6-9 */
+
+}
+strong, p.title-bar, h1 {
+    font-weight: bold;
+}
+p.title-bar {
+    text-align: center;
+}
+ol {
+    margin-left: 30px;
+    list-style: decimal;
+}
+ol li {
+    line-height: 2;
+}
+.block {
+    margin-top: 20px;
+    float: left;
+}
+#question-list {
+}
+#answered-questions {
+}
+td.buttons {
+    width: 140px !important;
+}
