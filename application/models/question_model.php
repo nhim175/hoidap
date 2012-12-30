@@ -73,6 +73,9 @@ class Question_model extends CI_Model {
         $this->db->where('id', $questionID);
         $this->db->update('question', array('active' => 0));
     }
+    public function get_all() {
+        return $this->db->get('question');
+    }
     public function get_next_questions() {
         $this->db->select('*');
         $this->db->from('question');
@@ -81,6 +84,18 @@ class Question_model extends CI_Model {
         return $this->db->get();
     }
     public function reset() {
-        $this->db->update('question', array('active' => 0));
+        $questions = $this->get_all()->result();
+        foreach($questions as $question) {
+            $this->db->set('content', $question->content);
+            $this->db->set('adviser', $question->adviser);
+            $this->db->set('status', $question->status);
+            $this->db->set('active', $question->active);
+            $this->db->set('date', $question->date);
+            $this->db->set('later', $question->later);
+            $this->db->set('for', $question->for);
+            $this->db->insert('question_backup');  
+        }        
+        $this->db->truncate('question');
+        //$this->db->update('question', array('active' => 0));
     }
 }
