@@ -7,94 +7,58 @@ echo anchor('thuky/logout', 'Log out!', 'title="Log out"');
 </div>
 <div class="left-col">
     <div id="question-tbl">
-        <div id="adviser1-tbl" class="adviser-tbl block left">
-            <p class="title-bar"><?php echo $adviser1->name?></p>
-            <?php 
-            foreach($adviser1_questions as $question) {
-                $date = strtotime($question->date);
-                $now = time();
-                $sec_diff = $now - $date;
-                $min_diff = floor($sec_diff/60)+420;
-                echo '<p class="chosen question';
-                if($question->later==1) {
-                    echo ' later';
-                }
-                echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->content.'<span class="minutes"> - '.$min_diff.' phút trước</span>'.'</p>';
-            }
-            ?>
-        </div>
-        <div id="adviser2-tbl" class="adviser-tbl block left">
-            <p class="title-bar"><?php echo $adviser2->name?></p>
-            <?php 
-            foreach($adviser2_questions as $question) {
-                $date = strtotime($question->date);
-                $now = time();
-                $sec_diff = $now - $date;
-                $min_diff = floor($sec_diff/60)+420;
-                echo '<p class="chosen question';
-                if($question->later==1) {
-                    echo ' later';
-                }
-                echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->content.'<span class="minutes"> - '.$min_diff.' phút trước</span>'.'</p>';
-            }
-            ?>
-        </div>
-        <div id="adviser3-tbl" class="adviser-tbl block left">
-            <p class="title-bar"><?php echo $adviser3->name?></p>
-            <?php 
-            foreach($adviser3_questions as $question) {
-                $date = strtotime($question->date);
-                $now = time();
-                $sec_diff = $now - $date;
-                $min_diff = floor($sec_diff/60)+420;
-                echo '<p class="chosen question';
-                if($question->later==1) {
-                    echo ' later';
-                }
-                echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->content.'<span class="minutes"> - '.$min_diff.' phút trước</span>'.'</p>';
-            }
-            ?>
-        </div>
-        <div id="question-list" class="block left">
-            <p><strong>Danh sách câu hỏi</strong></p>
-            <table>
-        <?php
-        foreach($unchosen_questions_arr as $question) {
-            $date = strtotime($question->date);
-            $now = time();
-            $sec_diff = $now - $date;
-            $min_diff = floor($sec_diff/60)+420;
-            
-            echo '<tr><td><p class="question" id="question'.$question->id.'">'.$question->id.' - '.$question->content.'<span class="minutes"> - '.$min_diff.' phút trước</span>'.'</p></td></tr>';
-            
-        }
-        ?>
-            </table>    
-        </div>
+        <?php $this->load->view('manager_ajax_index', $data)?>
     </div><!--#question-list-->
     <div>
         <textarea id="question-txt"></textarea>
     </div>
 </div><!--.left-col-->
+<div id="adviser-list">
+    <div class="inner">
+        <p id="adviser1" class="adviser-option">Chuyên gia thủy sản</p>
+        <p id="adviser2" class="adviser-option">Chuyên gia trồng trọt</p>
+        <p id="adviser3" class="adviser-option">Chuyên gia chăn nuôi</p>
+    </div>
+</div>
 <div class="right-col">
-    <div id="chat-box">
-        <div class="inner">
-            <div class="chat-screen" id="chat-screen">
+    <div id="chat-panel">
+        <div id="chat-box">
+            <div class="inner">
+                <div class="chat-screen" id="chat-screen">
+                    <?php 
+                
+                    foreach (array_reverse($chats) as $chat) {
+                        echo '<p><strong>'.$chat->nickname.': </strong>'.$chat->content.'</p>';
+                    }
+                    ?>
+                </div>
+                <div class="chat-input">
+                    <textarea id="chat-input"></textarea>
+                </div>
+            </div>
+        </div>
+        <div id="chat-box2">
+            <div class="inner">
+                <div class="chat-screen" id="chat-screen2">
                 <?php 
-            
-                foreach (array_reverse($chats) as $chat) {
-                    echo '<p><strong>'.$chat->name.': </strong>'.$chat->content.'</p>';
+                
+                foreach (array_reverse($chats2) as $chat) {
+                    echo '<p><strong>'.$chat->nickname.': </strong>'.$chat->content.'</p>';
                 }
                 ?>
-            </div>
-            <div class="chat-input">
-                <textarea id="chat-input"></textarea>
+                    
+                </div>
+                <div class="chat-input">
+                    <textarea id="chat-input2"></textarea>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
 var managerID = $('#manager').val();
+var txtQuestion = '';
+var adviserChoice = null;
 $('p.question').live('click', function() {
     var questionID = $(this).attr('id').match(/\d+/)[0];
     if($(this).hasClass('solved')) {
@@ -112,17 +76,27 @@ $('#question-txt').bind('keydown', function(e) {
     if(e.keyCode==13) {
         //ajax function to upload question
         e.preventDefault();
-        var txtQuestion = $(this).val();
-        $.post('<?php echo base_url() ?>index.php/manager/upload_question', {question: txtQuestion});
-        $(this).val('');
+        txtQuestion = $(this).val();
+        $('#adviser-list').fadeIn('slow');
+        //$.post('<?php echo base_url() ?>index.php/manager/upload_question', {question: txtQuestion});
+        //$(this).val('');
     }
+});
+$('.adviser-option').live('click', function() {
+    adviserChoice = $(this).attr('id').match(/\d+/)[0];
+    $.post('<?php echo base_url() ?>index.php/manager/upload_question', {question: txtQuestion, adviserChoice: adviserChoice});
+    $('#adviser-list').fadeOut('slow');
+    $('#question-txt').val('');
 });
 setInterval(function() {
     $.post('<?php echo base_url() ?>index.php/manager/ajax_load',{}, function(data) {
         $('#question-tbl').html(data);
     });
-    $.post('<?php echo base_url() ?>index.php/manager/ajax_chat',{}, function(data) {
+    $.post('<?php echo base_url() ?>index.php/manager/ajax_chat/1',{}, function(data) {
         $('#chat-screen').html(data);
+    });
+    $.post('<?php echo base_url() ?>index.php/manager/ajax_chat/2',{}, function(data) {
+        $('#chat-screen2').html(data);
     });
 },1000);
 $('div.chat-screen').scrollTop(500);
@@ -131,8 +105,22 @@ $('#chat-input').bind('keydown', function(e) {
         //ajax function to upload question
         e.preventDefault();
         var txtChat = $(this).val();
-        $.post('<?php echo base_url() ?>index.php/manager/insert_chat', {content: txtChat, managerID: managerID});
+        $.post('<?php echo base_url() ?>index.php/manager/insert_chat', {content: txtChat, managerID: managerID, box: 1});
         $(this).val('');
     }
+});
+$('#chat-input2').bind('keydown', function(e) {
+    if(e.keyCode==13) {
+        //ajax function to upload question
+        e.preventDefault();
+        var txtChat = $(this).val();
+        $.post('<?php echo base_url() ?>index.php/manager/insert_chat', {content: txtChat, managerID: managerID, box: 2});
+        $(this).val('');
+    }
+});
+$('#delete-q').live('click', function(e) {
+    e.preventDefault();
+    var questionID = $(this).parent().attr('id').match(/\d+/)[0];
+    $.post('<?php echo base_url() ?>index.php/manager/remove', {question : questionID});
 });
 </script>

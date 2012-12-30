@@ -1,5 +1,5 @@
 <?php
-echo doctype('html4-trans');
+echo doctype('xhtml1-trans');
 ?>
 <html>
 <head>    

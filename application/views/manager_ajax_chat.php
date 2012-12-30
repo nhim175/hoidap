@@ -1,7 +1,7 @@
 <?php 
 
 foreach (array_reverse($chats) as $chat) {
-    echo '<p><strong>'.$chat->name.': </strong>'.$chat->content.'</p>';
+    echo '<p><strong>'.$chat->nickname.': </strong>'.$chat->content.'</p>';
 }
 ?>
 <script>

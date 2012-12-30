@@ -12,7 +12,7 @@ class Manager extends CI_Controller {
     }
     public function index() {
         
-        if(!$this->session->userdata('username')) {
+        if((!$this->session->userdata('username'))||($this->session->userdata['position']!='manager')) {
             $data['page'] = 'manager';
             $data['error'] = false;
             $data['username_input'] = array('name' => 'username', 'id' => 'username');
@@ -30,7 +30,10 @@ class Manager extends CI_Controller {
             $data['adviser3_questions'] = $this->question_model->get_question_by_adviser(3)->result();
             $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
             $data['answered_questions'] = $this->question_model->get_answered_question()->result();
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
+            $data['chats'] = $this->chat_model->get_chat(1,20,0)->result();
+            $data['chats2'] = $this->chat_model->get_chat(2,20,0)->result();
+            $data['next_questions'] = $this->question_model->get_next_questions()->result();
+            $data['data'] = $data;
             $this->load->view('templates/header', $data);
             $this->load->view('manager_index', $data);
             $this->load->view('templates/footer', $data);
@@ -48,7 +51,7 @@ class Manager extends CI_Controller {
     }
     public function logout() {
         $this->session->sess_destroy();
-        redirect('thuky/index', 'refresh');
+        redirect('', 'refresh');
     }
     public function solve() {
         if($this->session->userdata('username')) {            
@@ -62,6 +65,12 @@ class Manager extends CI_Controller {
             $this->question_model->unsolve($questionID);
         }        
     }
+    public function remove() {
+        if($this->session->userdata('username')) {            
+            $questionID = $this->input->post('question');
+            $this->question_model->remove($questionID);
+        }        
+    }
     public function ajax_load() {
         if($this->session->userdata('username')) {
             $data['adviser1'] = $this->account_model->get_user_by_id(1)->row();
@@ -72,18 +81,20 @@ class Manager extends CI_Controller {
             $data['adviser3_questions'] = $this->question_model->get_question_by_adviser(3)->result();
             $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
             $data['answered_questions'] = $this->question_model->get_answered_question()->result();
+            $data['next_questions'] = $this->question_model->get_next_questions()->result();
             $this->load->view('manager_ajax_index', $data);
         }
     }
     public function upload_question() {
         if($this->session->userdata('username')) {
             $question = $this->input->post('question');
-            $this->question_model->upload($question);
+            $for = $this->input->post('adviserChoice');
+            $this->question_model->upload($question, $for);
         }
     }
-    public function ajax_chat() {
+    public function ajax_chat($box) {
         if($this->session->userdata('username')) {
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
+            $data['chats'] = $this->chat_model->get_chat($box,20,0)->result();
             $this->load->view('manager_ajax_chat', $data);
         }
     }
@@ -91,7 +102,8 @@ class Manager extends CI_Controller {
         if($this->session->userdata('username')) {
             $content = $this->input->post('content');
             $manager_id = $this->input->post('managerID');
-            $this->chat_model->insert($content, $manager_id);
+            $box = $this->input->post('box');
+            $this->chat_model->insert($content, $manager_id, $box);
         }
     }
 }

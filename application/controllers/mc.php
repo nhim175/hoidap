@@ -11,7 +11,7 @@ class Mc extends CI_Controller {
         $this->load->model('chat_model');        
     }
     public function index() {
-        if(!$this->session->userdata('username')) {
+        if((!$this->session->userdata('username'))||($this->session->userdata['position']!='mc')) {
             $data['page'] = 'mc';
             $data['error'] = false;
             $data['username_input'] = array('name' => 'username', 'id' => 'username');
@@ -30,7 +30,9 @@ class Mc extends CI_Controller {
             $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
             $data['answered_questions'] = $this->question_model->get_answered_question()->result();
             $data['next_questions'] = $this->question_model->get_next_questions()->result();
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
+            $data['chats'] = $this->chat_model->get_chat(1,20,0)->result();
+            $data['chats2'] = $this->chat_model->get_chat(2,20,0)->result();
+            $data['data'] = $data;
             $this->load->view('templates/header', $data);
             $this->load->view('mc_index', $data);
             $this->load->view('templates/footer', $data);
@@ -47,7 +49,7 @@ class Mc extends CI_Controller {
     }
     public function logout() {
         $this->session->sess_destroy();
-        redirect('mc/index', 'refresh');
+        redirect('', 'refresh');
     }
     public function solve() {
         if($this->session->userdata('username')) {            
@@ -72,7 +74,6 @@ class Mc extends CI_Controller {
             $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
             $data['answered_questions'] = $this->question_model->get_answered_question()->result();
             $data['next_questions'] = $this->question_model->get_next_questions()->result();
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
             $this->load->view('mc_ajax_index', $data);
         }
     }
@@ -82,11 +83,18 @@ class Mc extends CI_Controller {
             $this->question_model->remove($questionID);
         }      
     }
+    public function ajax_chat($box) {
+        if($this->session->userdata('username')) {
+            $data['chats'] = $this->chat_model->get_chat($box,20,0)->result();
+            $this->load->view('mc_ajax_chat', $data);
+        }
+    }
     public function insert_chat() {
         if($this->session->userdata('username')) {
             $content = $this->input->post('content');
             $mc_id = $this->input->post('mcID');
-            $this->chat_model->insert($content, $mc_id);
+            $box = $this->input->post('box');
+            $this->chat_model->insert($content, $mc_id, $box);
         }
     }
 }

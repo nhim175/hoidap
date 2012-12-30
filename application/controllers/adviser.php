@@ -12,7 +12,7 @@ class Adviser extends CI_Controller {
     }
     public function index() {
        
-        if(!$this->session->userdata('username')) {
+        if((!$this->session->userdata('username'))||($this->session->userdata['position']!='adviser')) {
             $data['page'] = 'adviser';
             $data['error'] = false;
             $data['username_input'] = array('name' => 'username', 'id' => 'username');
@@ -24,15 +24,18 @@ class Adviser extends CI_Controller {
             $data['title'] = 'Adviser Homepage';
             $user = $this->account_model->get_user_info($this->session->userdata('adviser'))->row();
             $data['name'] = $user->username;
+            $id = $this->session->userdata('userid');
             $data['adviser1'] = $this->account_model->get_user_by_id(1)->row();
             $data['adviser2'] = $this->account_model->get_user_by_id(2)->row();
             $data['adviser3'] = $this->account_model->get_user_by_id(3)->row();
+            $data['adviser_questions'] = $this->question_model->get_question_by_adviser($id)->result();
             $data['adviser1_questions'] = $this->question_model->get_question_by_adviser(1)->result();
             $data['adviser2_questions'] = $this->question_model->get_question_by_adviser(2)->result();
             $data['adviser3_questions'] = $this->question_model->get_question_by_adviser(3)->result();
             $data['next_questions'] = $this->question_model->get_next_questions()->result();
-            $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
+            $data['unchosen_questions_arr'] = $this->question_model->get_unchosen_questions_by_adviser_id($id)->result();
+            $data['chats'] = $this->chat_model->get_chat(1,20,0)->result();
+            $data['data'] = $data;
             $this->load->view('templates/header', $data);
             $this->load->view('adviser_index', $data);
             $this->load->view('templates/footer', $data);
@@ -51,7 +54,7 @@ class Adviser extends CI_Controller {
     }
     public function logout() {
         $this->session->sess_destroy();
-        redirect('adviser/index', 'refresh');
+        redirect('', 'refresh');
     }
     public function choose_question() {
         if($this->session->userdata('username')) {
@@ -86,22 +89,24 @@ class Adviser extends CI_Controller {
         }
     }
     public function ajax_load() {
-        if($this->session->userdata('username')) {            
+        if($this->session->userdata('username')) {
+            $id = $this->session->userdata('userid');
             $data['adviser1'] = $this->account_model->get_user_by_id(1)->row();
             $data['adviser2'] = $this->account_model->get_user_by_id(2)->row();
             $data['adviser3'] = $this->account_model->get_user_by_id(3)->row();
+            $data['adviser_questions'] = $this->question_model->get_question_by_adviser($this->session->userdata('userid'))->result();
             $data['adviser1_questions'] = $this->question_model->get_question_by_adviser(1)->result();
             $data['adviser2_questions'] = $this->question_model->get_question_by_adviser(2)->result();
             $data['adviser3_questions'] = $this->question_model->get_question_by_adviser(3)->result();
             $data['next_questions'] = $this->question_model->get_next_questions()->result();
-            $data['unchosen_questions_arr'] = $this->question_model->get_all_unchosen_questions()->result();
+            $data['unchosen_questions_arr'] = $this->question_model->get_unchosen_questions_by_adviser_id($id)->result();
             
             $this->load->view('adviser_ajax_index', $data);
         }
     }
     public function ajax_chat() {
         if($this->session->userdata('username')) {
-            $data['chats'] = $this->chat_model->get_chat(20,0)->result();
+            $data['chats'] = $this->chat_model->get_chat(1,20,0)->result();
             $this->load->view('adviser_ajax_chat', $data);
         }
     }
