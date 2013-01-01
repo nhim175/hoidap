@@ -68,7 +68,7 @@ class Manager extends CI_Controller {
     public function remove() {
         if($this->session->userdata('username')) {            
             $questionID = $this->input->post('question');
-            $this->question_model->remove($questionID);
+            $this->question_model->answer_next($questionID);
         }        
     }
     public function ajax_load() {

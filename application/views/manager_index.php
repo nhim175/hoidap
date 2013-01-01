@@ -6,12 +6,14 @@ echo anchor('thuky/logout', 'Log out!', 'title="Log out"');
 <input type="hidden" id="manager" value="<?php echo $this->session->userdata('userid') ?>"/>
 </div>
 <div class="left-col">
+    <div>
+        
+        <textarea id="question-txt"></textarea>
+    </div>
     <div id="question-tbl">
         <?php $this->load->view('manager_ajax_index', $data)?>
     </div><!--#question-list-->
-    <div>
-        <textarea id="question-txt"></textarea>
-    </div>
+    
 </div><!--.left-col-->
 <div id="adviser-list">
     <div class="inner">

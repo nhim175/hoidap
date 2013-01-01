@@ -12,6 +12,7 @@
 echo anchor('thuky/index','Thư ký', array('class'=>'btn page-link'));
 echo anchor('mc/index','MC', array('class'=>'btn page-link'));
 echo anchor('adviser/index','Chuyên gia', array('class'=>'btn page-link'));
+echo anchor('admin/index','Admin', array('class'=>'btn page-link'));
 ?>
             </div>
         </div>
