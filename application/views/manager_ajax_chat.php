@@ -5,5 +5,5 @@ foreach (array_reverse($chats) as $chat) {
 }
 ?>
 <script>
-$('div.chat-screen').scrollTop(500);
+$('div.chat-screen').scrollTop(50000);
 </script>

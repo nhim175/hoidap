@@ -10,7 +10,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>
@@ -26,7 +26,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>
@@ -42,7 +42,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trướcc</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trướcc</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>
@@ -58,7 +58,7 @@
             $min_diff = floor($sec_diff/60)+360;            
             echo '<tr><td><p class="question" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>';
             if($this->session->userdata['username']=='tochucsx') {
-                echo ' - <a href="#" id="delete-q">Xóa</a>';
+                echo ' - <a href="#" id="delete-q">Xóa</a> - <a href="#" class="done">Xong</a>';
             }
             echo '</p></td></tr>';
             

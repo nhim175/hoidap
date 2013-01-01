@@ -59,25 +59,16 @@ echo anchor('thuky/logout', 'Log out!', 'title="Log out"');
 var managerID = $('#manager').val();
 var txtQuestion = '';
 var adviserChoice = null;
-$('p.question').live('click', function() {
-    var questionID = $(this).attr('id').match(/\d+/)[0];
-    if($(this).hasClass('solved')) {
-        $(this).removeClass('solved');
-        //ajax code set status of question to 1
-        //1 = unsolved, 2=solved, 3=removed
-        $.post('<?php echo base_url() ?>index.php/manager/unsolve', {question : questionID});
-    } else {
-        $(this).addClass('solved');
-        //ajax code set status of question to 2
-        $.post('<?php echo base_url() ?>index.php/manager/solve', {question : questionID});
-    }
+$('a.done').live('click', function() {
+    var questionID = $(this).parent().attr('id').match(/\d+/)[0];
+    $.post('<?php echo base_url() ?>index.php/manager/solve', {question : questionID});
 });
 $('#question-txt').bind('keydown', function(e) {
     if(e.keyCode==13) {
         //ajax function to upload question
         e.preventDefault();
         txtQuestion = $(this).val();
-        $('#adviser-list').fadeIn('slow');
+		$('#adviser-list').hide().fadeIn('slow');
         //$.post('<?php echo base_url() ?>index.php/manager/upload_question', {question: txtQuestion});
         //$(this).val('');
     }

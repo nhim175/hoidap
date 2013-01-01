@@ -44,23 +44,12 @@ echo anchor('mc/logout', 'Log out!', 'title="Log out"');
 </div>
 <script type="text/javascript">
 var mcID = 4;
-$('p.question').live('click', function() {
-    var questionID = $(this).attr('id').match(/\d+/)[0];
-    if($(this).hasClass('solved')) {
-        $(this).removeClass('solved');
-        //ajax code set status of question to 1
-        //1 = unsolved, 2=solved, 3=removed
-        $.post('<?php echo base_url() ?>index.php/mc/unsolve', {question : questionID});
-    } else {
-        $(this).addClass('solved');
-        //ajax code set status of question to 2
-        $.post('<?php echo base_url() ?>index.php/mc/solve', {question : questionID});
-    }
+$('a.done').live('click', function() {
+    var questionID = $(this).parent().attr('id').match(/\d+/)[0];    
+    //ajax code set status of question to 1
+    //1 = unsolved, 2=solved, 3=removed
+    $.post('<?php echo base_url() ?>index.php/mc/solve', {question : questionID});    
 });
-$('p.unanswered-question').live('click', function() {
-    var questionID = $(this).attr('id').match(/\d+/)[0];
-    $.post('<?php echo base_url() ?>index.php/mc/remove_question', {question: questionID});
-})
 setInterval(function() {
     $.post('<?php echo base_url() ?>index.php/mc/ajax_load',{}, function(data) {
         $('#question-tbl').html(data);

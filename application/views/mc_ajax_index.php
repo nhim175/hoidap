@@ -10,7 +10,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>
@@ -26,7 +26,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>
@@ -42,7 +42,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="done" href="#">Xong</a>'.'</p>';
         }
         ?>
     </div>

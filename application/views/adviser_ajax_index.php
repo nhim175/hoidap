@@ -10,7 +10,7 @@
             if($question->later==1) {
                 echo ' later';
             }
-            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
+            echo ' adviser'.$question->adviser.'" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span> - <a class="undo" href="#">Chọn lại</a>'.'</p>';
         }
         ?>
     </div>
@@ -32,17 +32,15 @@
         </div>
         <div id="advquestion-next" class="block left">
             <p><strong>Câu hỏi để lại lần sau</strong></p>
-            <table>
             <?php
             foreach($next_questions as $question) {
                 $date = strtotime($question->date);
                 $now = time();
                 $sec_diff = $now - $date;
                 $min_diff = floor($sec_diff/60)+360;            
-                echo '<tr><td><p class="question" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p></td></tr>';
+                echo '<p class="question" id="question'.$question->id.'">'.$question->id.'. '.$question->content.'<span class="minutes"> - '.$min_diff.'p trước</span>'.'</p>';
                 
             }
             ?>
-            </table> 
         </div>
     </div>

@@ -36,14 +36,9 @@ $('input.now').live('click', function() {
     attach(adviserID, questionID);
     answerNow(questionID);
 });
-$('p.chosen').live('click', function() {
-    if($(this).hasClass(adviser)) {
-        var questionID = $(this).attr('id').match(/\d+/)[0];
-        $(this).removeClass(adviser);
-        deattach(adviserID, questionID);
-    } else{
-        return false;
-    }
+$('a.undo').live('click', function() {
+    var questionID = $(this).parent().attr('id').match(/\d+/)[0];
+    deattach(adviserID, questionID);   
 });
 $('input.later').live('click', function() {
     var tr = $(this).parent().parent();
@@ -79,7 +74,6 @@ setInterval(function() {
         $('#chat-screen').html(data);
     });
 },1000);
-$('div.chat-screen').scrollTop(500);
 $('#chat-input').bind('keydown', function(e) {
     if(e.keyCode==13) {
         //ajax function to upload question
